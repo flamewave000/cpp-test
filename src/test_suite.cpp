@@ -1,14 +1,15 @@
-#include "test_suite.hpp"
+#include <test_suite.hpp>
 #include <chrono>
 #include <cstdio>
 
 using namespace std;
 using namespace std::chrono;
+using namespace cpp_test;
 
 inline high_resolution_clock::time_point now() { return high_resolution_clock::now(); }
 #define nano2milli(nano) (double)(nano).count() / 1000000.0
 
-bool unit_test::operator()(bool verbose) const {
+bool cpp_test::unit_test::operator()(bool verbose) const {
 	try {
 		_test();
 		return true;
@@ -23,7 +24,7 @@ bool unit_test::operator()(bool verbose) const {
 	}
 }
 
-void evaluate(run_set_ptr tests, bool verbose) {
+void cpp_test::evaluate(run_set_ptr tests, bool verbose) {
 	nanoseconds dur_all;
 	for (const named_test_set &test_set : tests()) {
 		nanoseconds dur_set;
